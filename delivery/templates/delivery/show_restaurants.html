@@ -1,41 +1,151 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Restaurants</title>
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 40px;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    }
+
+    h2 {
+        text-align: center;
+        color: #ff6b35;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background-color: #ff6b35;
+        color: white;
+        padding: 14px;
+        text-align: center;
+    }
+
+    td {
+        padding: 14px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+        background-color: #fff5f0;
+    }
+
+    img {
+        width: 120px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .action-link {
+        display: inline-block;
+        padding: 8px 14px;
+        margin: 4px;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .update {
+        background-color: #007bff;
+    }
+
+    .update:hover {
+        background-color: #0069d9;
+    }
+
+    .delete {
+        background-color: #dc3545;
+    }
+
+    .delete:hover {
+        background-color: #c82333;
+    }
+
+    .menu {
+        background-color: #28a745;
+    }
+
+    .menu:hover {
+        background-color: #218838;
+    }
+</style>
+
+
 </head>
+
 <body>
-    
-    <table border="1">
+
+
+<div class="container">
+
+    <h2>Restaurant Management</h2>
+
+    <table>
         <thead>
             <tr>
-                <th>Restaurant name</th>
+                <th>Restaurant Name</th>
                 <th>Picture</th>
                 <th>Cuisine</th>
                 <th>Rating</th>
                 <th>Operations</th>
             </tr>
         </thead>
+
         <tbody>
-            {%  for r in restaurantList %}
+            {% for r in restaurantList %}
                 <tr>
                     <td>{{ r.name }}</td>
+
                     <td>
-                        <img src="{{ r.picture }}">
+                        <img src="{{ r.picture }}" alt="{{ r.name }}">
                     </td>
+
                     <td>{{ r.cuisine }}</td>
-                    <td>{{ r.rating }}</td>
+
+                    <td>⭐ {{ r.rating }}</td>
+
                     <td>
-                        <a href="{% url 'open_update_restaurant' r.id %}">
-                            Update Restaurant Info
+                        <a class="action-link update"
+                           href="{% url 'open_update_restaurant' r.id %}">
+                            Update Restaurant
                         </a>
+
                         <br>
-                        <a href="{% url 'delete_restaurant' r.id %}">
+
+                        <a class="action-link delete"
+                           href="{% url 'delete_restaurant' r.id %}">
                             Delete Restaurant
                         </a>
+
                         <br>
-                        <a href="{% url 'open_update_menu' r.id %}">
+
+                        <a class="action-link menu"
+                           href="{% url 'open_update_menu' r.id %}">
                             Update Menu
                         </a>
                     </td>
@@ -43,6 +153,9 @@
             {% endfor %}
         </tbody>
     </table>
-    
+
+</div>
+
+
 </body>
 </html>

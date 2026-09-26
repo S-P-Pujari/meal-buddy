@@ -141,6 +141,56 @@ def update_menu(request, restaurant_id):
             )
     return render(request, 'delivery/admin_home.html')
 
+def edit_menu(request, item_id):
+    item = Item.objects.get(id=item_id)
+
+    if request.method == 'POST':
+        item.name = request.POST.get('name')
+        item.description = request.POST.get('description')
+        item.price = request.POST.get('price')
+        item.vegeterian = request.POST.get('vegeterian') == 'on'
+        item.picture = request.POST.get('picture')
+
+        item.save()
+
+        restaurant = item.restaurant
+        itemList = restaurant.items.all()
+
+        return render(
+            request,
+            'delivery/update_menu.html',
+            {
+                "itemList": itemList,
+                "restaurant": restaurant
+            }
+        )
+
+    return render(
+        request,
+        'delivery/edit_menu.html',
+        {
+            "item": item
+        }
+    )
+
+
+def delete_item(request, item_id):
+    item = Item.objects.get(id=item_id)
+    restaurant = item.restaurant
+
+    item.delete()
+
+    itemList = restaurant.items.all()
+
+    return render(
+        request,
+        'delivery/update_menu.html',
+        {
+            "itemList": itemList,
+            "restaurant": restaurant
+        }
+    )
+
 def view_menu(request, restaurant_id, username):
     restaurant = Restaurant.objects.get(id = restaurant_id)
     itemList = restaurant.items.all()

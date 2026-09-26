@@ -1,31 +1,113 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    
-    <title>Sign UP</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+ 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 50px 0;
+    }
+
+    .container {
+        width: 450px;
+        margin: auto;
+        background-color: white;
+        padding: 35px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    h3 {
+        text-align: center;
+        color: #ff6b35;
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 7px;
+        color: #444;
+        font-weight: bold;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 11px;
+        margin-bottom: 18px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 15px;
+        font-family: Arial, sans-serif;
+    }
+
+    textarea {
+        height: 90px;
+        resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+        border-color: #ff6b35;
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: #ff6b35;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #e85b2a;
+    }
+</style> 
+
 </head>
+
 <body>
-    <h3>SIGN UP below:</h3>
+ 
+<div class="container">
+
+    <h3>Sign Up</h3>
 
     <form action="{% url 'signup' %}" method="post">
         {% csrf_token %}
-        <label>Username </label>
-        <input type="text" name="username">
-        <br><br>
-        <label>Password </label>
-        <input type="password" name="password">
-        <br><br>
-        <label>Email </label>
-        <input type="email" name="email">
-        <br><br>
-        <label>Mobile </label>
-        <input type="text" name="mobile">
-        <br><br>
-        <label>Address </label>
-        <textarea name="address"></textarea>
-        <br><br>
+
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Mobile</label>
+        <input type="text" name="mobile" required>
+
+        <label>Address</label>
+        <textarea name="address" required></textarea>
+
         <button type="submit">SIGN UP</button>
     </form>
+
+</div>
+
 
 </body>
 </html>

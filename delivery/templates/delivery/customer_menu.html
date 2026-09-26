@@ -1,45 +1,168 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Menu</title>
+ 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 40px;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    h3 {
+        color: #ff6b35;
+        font-size: 28px;
+        margin: 0;
+    }
+
+    .cart-link {
+        background-color: #28a745;
+        color: white;
+        padding: 11px 18px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+
+    .cart-link:hover {
+        background-color: #218838;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background-color: #ff6b35;
+        color: white;
+        padding: 14px;
+        text-align: center;
+    }
+
+    td {
+        padding: 14px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+        background-color: #fff5f0;
+    }
+
+    img {
+        width: 120px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .add-cart {
+        display: inline-block;
+        padding: 9px 16px;
+        background-color: #ff6b35;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .add-cart:hover {
+        background-color: #e85b2a;
+    }
+
+    .veg {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .non-veg {
+        color: #dc3545;
+        font-weight: bold;
+    }
+</style> 
+
 </head>
+
 <body>
-    <h3>Welcome {{username}}!</h3>
+ 
+<div class="container">
 
-    <a href="{% url 'show_cart' username %}" >Go to cart</a>
+    <div class="header">
+        <h3>Welcome {{ username }}!</h3>
 
-    <!-- show current menu -->
-    <table border="1">
+        <a class="cart-link"
+           href="{% url 'show_cart' username %}">
+            🛒 Go to Cart
+        </a>
+    </div>
+
+    <table>
         <thead>
             <tr>
-                <th>Item name</th>
+                <th>Item Name</th>
                 <th>Picture</th>
                 <th>Description</th>
                 <th>Price</th>
-                <th>Is veg?</th>
+                <th>Is Veg?</th>
                 <th>Operation</th>
             </tr>
         </thead>
+
         <tbody>
-            {%  for item in itemList %}
+            {% for item in itemList %}
                 <tr>
                     <td>{{ item.name }}</td>
+
                     <td>
-                        <img src="{{ item.picture }}">
+                        <img src="{{ item.picture }}" alt="{{ item.name }}">
                     </td>
+
                     <td>{{ item.description }}</td>
-                    <td>{{ item.price }}</td>
-                    <td>{{ item.vegeterian }}</td>
+
+                    <td>₹{{ item.price }}</td>
+
                     <td>
-                        <a href="{% url 'add_to_cart' item.id username %}">
-                            Add to cart
+                        {% if item.vegeterian %}
+                            <span class="veg">✓ Yes</span>
+                        {% else %}
+                            <span class="non-veg">✗ No</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <a class="add-cart"
+                           href="{% url 'add_to_cart' item.id username %}">
+                            Add to Cart
                         </a>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+
+</div> 
+
 </body>
 </html>
